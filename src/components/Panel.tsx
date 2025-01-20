@@ -6,7 +6,8 @@ import { useChannel } from "storybook/internal/manager-api";
 import { styled, useTheme } from "storybook/internal/theming";
 
 import { EVENTS } from "../constants";
-import { List } from "./List";
+import { Local } from "./Local";
+import { Remote } from "./Remote";
 
 interface PanelProps {
   active: boolean;
@@ -43,23 +44,14 @@ export const Panel: React.FC<PanelProps> = memo(function MyPanel(props) {
         backgroundColor={theme.background.hoverable}
       >
         <div id="remote" title="Remote" color={theme.color.positive}>
-          <Placeholder>
-            <Fragment>
-              This tab will allow the user to test their response area against an existing evaluation
-              function on aws through a given url.
-            </Fragment>
-          </Placeholder>
+          <Remote />
         </div>
         <div
           id="local"
           title={`Local`}
           color={theme.color.negative}
         >
-          <Placeholder>
-            <Fragment>
-              This tab will allow the user to test their response area against a local evaluation function.
-            </Fragment>
-          </Placeholder>
+          <Local />
         </div>
       </TabsState>
     </AddonPanel>
