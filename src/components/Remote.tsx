@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Remote() {
+export function Remote() {
     return (
         <div>
             <h1>Remote Component</h1>

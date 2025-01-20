@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Local() {
+export function Local() {
     return (
         <div>
             <h1>Local Component</h1>
