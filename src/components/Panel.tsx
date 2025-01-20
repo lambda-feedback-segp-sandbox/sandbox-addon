@@ -39,64 +39,27 @@ export const Panel: React.FC<PanelProps> = memo(function MyPanel(props) {
   return (
     <AddonPanel {...props}>
       <TabsState
-        initial="overview"
+        initial="remote"
         backgroundColor={theme.background.hoverable}
       >
-        <div id="overview" title="Overview" color={theme.color.positive}>
+        <div id="remote" title="Remote" color={theme.color.positive}>
           <Placeholder>
             <Fragment>
-              Addons can gather details about how a story is rendered. This is
-              panel uses a tab pattern. Click the button below to fetch data for
-              the other two tabs.
-            </Fragment>
-            <Fragment>
-              <RequestDataButton onClick={fetchData}>
-                Request data
-              </RequestDataButton>
+              This tab will allow the user to test their response area against an existing evaluation
+              function on aws through a given url.
             </Fragment>
           </Placeholder>
         </div>
         <div
-          id="div"
-          title={`${divs.length} Divs`}
+          id="local"
+          title={`Local`}
           color={theme.color.negative}
         >
-          {divs.length > 0 ? (
-            <Placeholder>
-              <p>The following divs have less than 2 childNodes</p>
-              <List
-                items={divs.map((item, index) => ({
-                  title: `item #${index}`,
-                  description: JSON.stringify(item, null, 2),
-                }))}
-              />
-            </Placeholder>
-          ) : (
-            <Placeholder>
-              <p>No divs found</p>
-            </Placeholder>
-          )}
-        </div>
-        <div
-          id="all"
-          title={`${styled.length} All`}
-          color={theme.color.warning}
-        >
-          {styled.length > 0 ? (
-            <Placeholder>
-              <p>The following elements have a style attribute</p>
-              <List
-                items={styled.map((item, index) => ({
-                  title: `item #${index}`,
-                  description: JSON.stringify(item, null, 2),
-                }))}
-              />
-            </Placeholder>
-          ) : (
-            <Placeholder>
-              <p>No styled elements found</p>
-            </Placeholder>
-          )}
+          <Placeholder>
+            <Fragment>
+              This tab will allow the user to test their response area against a local evaluation function.
+            </Fragment>
+          </Placeholder>
         </div>
       </TabsState>
     </AddonPanel>
