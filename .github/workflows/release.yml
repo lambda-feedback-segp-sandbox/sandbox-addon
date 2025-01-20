@@ -19,6 +19,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run unit tests
         run: npm test
