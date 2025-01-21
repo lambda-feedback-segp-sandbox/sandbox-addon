@@ -21,7 +21,7 @@ export function Form(props: FormProps) {
         <form>
             <label>URL: </label>
             <input type="text" value = {urlValue} onChange={handleUrlChange} /><br />
-            <label>Schema: </label>
+            <label>Params: </label>
             <input type="text" value = {schemaValue} onChange={handleSchemaChange} /><br />
             <button type="button" onClick={(e) => {
                 props.evalFunc(urlValue, JSON.parse(schemaValue))

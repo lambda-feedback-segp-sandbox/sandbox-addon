@@ -1,10 +1,15 @@
 import React from 'react';
 import {Form} from './Form';
+import {useGlobals} from '@storybook/manager-api'
 
 export function Remote() {
-    function remoteEval(url: String, schema: JSON) {
+    const [globals, updateGlobals] = useGlobals();
+    function remoteEval(url: String, params: JSON) {
         console.log("remote eval");
         console.log(url);
+        console.log(params);
+        const response = globals['response'];
+        console.log(response);
     }
     return (
         <div>

@@ -2,7 +2,7 @@ import React from 'react';
 import {Form} from './Form';
 
 export function Local() {
-    function localEval(url: String, schema: JSON) {
+    function localEval(url: String, params: JSON) {
         console.log("local eval");
         console.log(url);
     }
