@@ -25,3 +25,7 @@ jobs:
 
       - name: Run unit tests
         run: npm test
+      - if: github.ref == 'refs/heads/main'
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
