@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  
+
   "repository": {
     "type": "git",
     "url": "https://github.com/lambda-feedback-segp-sandbox/sandbox-addon"
@@ -27,7 +27,6 @@
       "import": "./dist/preview.js",
       "require": "./dist/preview.cjs"
     },
-    "./preset": "./dist/preset.cjs",
     "./manager": "./dist/manager.js",
     "./package.json": "./package.json"
   },
@@ -49,7 +48,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@storybook/icons": "^1.2.10", 
+    "@storybook/icons": "^1.2.10",
     "@lambda-feedback-segp-sandbox/response-area": "^0.1.0"
   },
   "devDependencies": {
@@ -96,9 +95,6 @@
     ],
     "previewEntries": [
       "src/preview.ts"
-    ],
-    "nodeEntries": [
-      "src/preset.ts"
     ]
   },
   "storybook": {
