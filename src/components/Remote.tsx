@@ -13,7 +13,10 @@ export function Remote() {
 
         const request = {"response": response, "answer": answer, "params": params};
 
-        const res = await axios.post(url, request);
+        const res = await axios.post(url, request, {
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }});
         console.log(res);
     }
     return (
