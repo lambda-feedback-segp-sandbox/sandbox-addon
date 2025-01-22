@@ -3,12 +3,12 @@
   "version": "0.2.0",
   "description": "lambda feedback sandbox addon",
   "keywords": [
-    "storybook-addons", "storybook-addons"
+    "storybook-addons",
+    "storybook-addons"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  
   "repository": {
     "type": "git",
     "url": "https://github.com/lambda-feedback-segp-sandbox/sandbox-addon"
@@ -49,8 +49,9 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@storybook/icons": "^1.2.10", 
-    "@lambda-feedback-segp-sandbox/response-area": "^0.1.0"
+    "@lambda-feedback-segp-sandbox/response-area": "^0.1.0",
+    "@storybook/icons": "^1.2.10",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "0.0.0-pr-26654-sha-49d01553",
