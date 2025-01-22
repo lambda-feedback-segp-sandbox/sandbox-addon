@@ -8,7 +8,7 @@ export function Remote() {
         console.log("remote eval");
         console.log(url);
         console.log(params);
-        const response = globals['addon-response'];
+        const response = localStorage.getItem('response');
         console.log(response);
     }
     return (
