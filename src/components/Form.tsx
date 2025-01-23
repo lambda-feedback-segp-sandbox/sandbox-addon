@@ -24,6 +24,7 @@ export function Form(props: FormProps) {
             <label>Params: </label>
             <input type="text" value = {schemaValue} onChange={handleSchemaChange} /><br />
             <button type="button" onClick={(e) => {
+                e.preventDefault();
                 props.evalFunc(urlValue, JSON.parse(schemaValue))
             }}>Evaluate</button>
         </form>
