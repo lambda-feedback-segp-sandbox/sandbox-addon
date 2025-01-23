@@ -12,6 +12,7 @@ export const AnswerButton = memo(function MyAddonSelector() {
 
   function saveAnswer() {
     localStorage.setItem('answer', localStorage.getItem('response'));
+    window.dispatchEvent(new Event('storage'));
   }
 
   return (
