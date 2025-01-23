@@ -17,8 +17,8 @@ export function Evaluate() {
         
         const res = await axios.post("http://localhost:3070", request);
         console.log(res);
-        updateResponse(res.data);
-        
+        updateResponse(JSON.stringify(res.data));
+        // {homes.map(home => <div>{home.name}</div>)}
     }
     return (
         <div>
