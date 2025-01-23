@@ -13,12 +13,9 @@ export function Evaluate() {
         const response = localStorage.getItem('response');
         console.log(response);
 
-        const request = {"response": response, "answer": answer, "params": params};
+        const request = {"url": url, "response": response, "answer": answer, "params": params};
         
-        const res = await axios.post(url, request, {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }});
+        const res = await axios.post("localhost:3070", request);
         console.log(res);
         updateResponse(res.data);
         
