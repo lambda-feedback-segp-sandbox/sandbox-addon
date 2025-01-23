@@ -16,7 +16,7 @@ addons.register(ADDON_ID, (api) => {
   // Register a panel
   addons.add(PANEL_ID, {
     type: types.PANEL,
-    title: "My addon",
+    title: "Evaluate",
     match: ({ viewMode }) => viewMode === "story",
     render: ({ active }) => <Panel active={active} />,
   });
