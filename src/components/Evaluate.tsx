@@ -15,7 +15,7 @@ export function Evaluate() {
 
         const request = {"url": url, "response": response, "answer": answer, "params": params};
         
-        const res = await axios.post("localhost:3070", request);
+        const res = await axios.post("http://localhost:3070", request);
         console.log(res);
         updateResponse(res.data);
         
