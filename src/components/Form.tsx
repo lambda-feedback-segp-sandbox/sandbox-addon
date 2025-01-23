@@ -1,4 +1,4 @@
-import React, {useState, MouseEventHandler} from 'react'
+import React, {useEffect, useState, MouseEventHandler} from 'react'
 import { color, typography, StorybookTheme, background } from 'storybook/internal/theming';
 
 type FormProps = {
@@ -33,11 +33,20 @@ export function Form(props: FormProps) {
         </tr>
     );
 
+    const [answer, setAnswer] = useState("{}");
+    useEffect(() => {
+        const handleStorage = () => {
+            setAnswer(localStorage.getItem('answer'));
+        }
+        window.addEventListener('storage', handleStorage);
+        return () => window.removeEventListener('storage', handleStorage);
+    }, []);
+
     return (
         <div style={formStyles.topLevelDiv}>
             <table>
                 {createRow('Evaluation Function URL:', <input style={formStyles.inputArea} type='url' value={urlValue} onChange={handleUrlChange}/>)}
-                {createRow('Answer JSON:', <textarea style={formStyles.inputArea} value={"{}"} />)}
+                {createRow('Answer JSON:', <textarea style={formStyles.inputArea} value={answer} onChange={() => {localStorage.setItem("answer", answer)}}/>)}
                 {createRow('Parameters JSON:', <textarea style={formStyles.inputArea} value={schemaValue} onChange={handleSchemaChange}/>)}
             </table>
             {createEvalButton()}
