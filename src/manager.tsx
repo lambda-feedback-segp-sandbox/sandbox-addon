@@ -22,9 +22,7 @@ addons.register(ADDON_ID, (api) => {
   addons.add(TOOL_ID, {
     type: types.TOOL,
     title: "Save Answer",
-    match: ({ tabId, viewMode }) => !tabId && viewMode == 'story',
-    render: () => (
-        <AnswerButton />
-      )
+    match: ({ tabId, viewMode }) => !tabId && viewMode == "story",
+    render: () => <AnswerButton />,
   });
 });

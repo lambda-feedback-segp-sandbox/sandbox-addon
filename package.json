@@ -1,6 +1,6 @@
 {
   "name": "@lambda-feedback-segp-sandbox/sandbox-addon",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "lambda feedback sandbox addon",
   "keywords": [
     "storybook-addons",
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@lambda-feedback-segp-sandbox/response-area": "^0.1.0",
-    "@lambda-feedback-segp-sandbox/ef-test-server": "^0.1.0",
+    "@lambda-feedback-segp-sandbox/ef-test-server": "^0.3.0",
     "@storybook/icons": "^1.2.10",
     "axios": "^1.7.9",
     "node-fetch": "^3.3.2"
