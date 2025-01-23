@@ -8,7 +8,7 @@ export function Evaluate() {
         console.log("remote eval");
         console.log(url);
         console.log(params);
-        const answer = "Hello";
+        const answer = localStorage.getItem('answer');
         
         const response = localStorage.getItem('response');
         console.log(response);

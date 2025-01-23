@@ -1,6 +1,6 @@
 {
   "name": "@lambda-feedback-segp-sandbox/sandbox-addon",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "lambda feedback sandbox addon",
   "keywords": [
     "storybook-addons",
