@@ -1,4 +1,5 @@
 import React, {useState, MouseEventHandler} from 'react'
+import { color, typography, StorybookTheme, background } from 'storybook/internal/theming';
 
 type FormProps = {
     evalFunc: any
@@ -17,16 +18,66 @@ export function Form(props: FormProps) {
     const handleSchemaChange = (event: ChangeEvent) => {
         setSchemaValue(event.target.value);
     }
+
+    const createEvalButton = () => (
+        <button type="button" style={formStyles.evalButton} onClick={(e) => {
+            e.preventDefault();
+            props.evalFunc(urlValue, JSON.parse(schemaValue));
+        }}>Test Evaluation Function</button>
+    );
+
+    const createRow = (text: string, inputElem: React.JSX.Element) => (
+        <tr>
+            <td style={formStyles.labelColumn}><label>{text}</label></td>
+            <td style={formStyles.inputColumn}>{inputElem}</td>
+        </tr>
+    );
+
     return (
-        <div>
-            <label>URL: </label>
-            <input type="text" value = {urlValue} onChange={handleUrlChange} /><br />
-            <label>Params: </label>
-            <input type="text" value = {schemaValue} onChange={handleSchemaChange} /><br />
-            <button type="button" onClick={(e) => {
-                e.preventDefault();
-                props.evalFunc(urlValue, JSON.parse(schemaValue))
-            }}>Evaluate</button>
+        <div style={formStyles.topLevelDiv}>
+            <table>
+                {createRow('Evaluation Function URL:', <input style={formStyles.inputArea} type='url' value={urlValue} onChange={handleUrlChange}/>)}
+                {createRow('Answer JSON:', <textarea style={formStyles.inputArea} value={"{}"} />)}
+                {createRow('Parameters JSON:', <textarea style={formStyles.inputArea} value={schemaValue} onChange={handleSchemaChange}/>)}
+            </table>
+            {createEvalButton()}
         </div>
     );
 }
+
+const formStyles = {
+    topLevelDiv: {
+        fontFamily: typography.fonts.base,
+        fontWeight: typography.weight.bold
+    },
+    inputArea: {
+        width: '100%',
+        padding: '5px',
+        fontFamily: 'inherit',
+        fontWeight: typography.weight.regular,
+        resize: 'vertical',
+        margin: '0px 10px 5px 15px'
+    },
+    labelColumn: {
+        fontFamily: 'inherit',
+        fontWeight: typography.weight.bold,
+        whiteSpace: 'nowrap',
+        width: '1%',
+        verticalAlign: 'top',
+        padding: '5px 0px'
+    },
+    inputColumn: {
+        fontFamily: typography.fonts.mono,
+        fontWeight: typography.weight.regular,
+        width: '100%'
+    },
+    evalButton: {
+        fontFamily: 'inherit',
+        fontWeight: typography.weight.bold,
+        width: '100%',
+        margin: '10px 0px 0px 10px',
+        padding: '10px',
+        backgroundColor: color.primary,
+        color: 'white'
+    },
+};
