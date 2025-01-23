@@ -2,9 +2,8 @@ import React from "react";
 import { addons, types } from "storybook/internal/manager-api";
 
 import { Panel } from "./components/Panel";
-import { Tab } from "./components/Tab";
-import { Tool } from "./components/Tool";
-import { ADDON_ID, PANEL_ID, TAB_ID, TOOL_ID } from "./constants";
+import { AnswerButton } from "./components/AnswerButton";
+import { ADDON_ID, PANEL_ID, TOOL_ID } from "./constants";
 
 /**
  * Note: if you want to use JSX in this file, rename it to `manager.tsx`
@@ -19,5 +18,13 @@ addons.register(ADDON_ID, (api) => {
     title: "Evaluate",
     match: ({ viewMode }) => viewMode === "story",
     render: ({ active }) => <Panel active={active} />,
+  });
+  addons.add(TOOL_ID, {
+    type: types.TOOL,
+    title: "Save Answer",
+    match: ({ tabId, viewMode }) => !tabId && viewMode == 'story',
+    render: () => (
+        <AnswerButton />
+      )
   });
 });
