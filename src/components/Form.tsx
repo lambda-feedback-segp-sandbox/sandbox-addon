@@ -20,8 +20,8 @@ export function Form(props: FormProps) {
     }
     
     const handleAnswerChange = (event: ChangeEvent) => {
-        setAnswer(event.target.value);
         localStorage.setItem("answer", answer)
+        setAnswer(event.target.value);
     }
 
     const createEvalButton = () => (
