@@ -18,6 +18,11 @@ export function Form(props: FormProps) {
     const handleSchemaChange = (event: ChangeEvent) => {
         setSchemaValue(event.target.value);
     }
+    
+    const handleAnswerChange = (event: ChangeEvent) => {
+        setAnswer(event.target.value);
+        localStorage.setItem("answer", answer)
+    }
 
     const createEvalButton = () => (
         <button type="button" style={formStyles.evalButton} onClick={(e) => {
@@ -46,7 +51,7 @@ export function Form(props: FormProps) {
         <div style={formStyles.topLevelDiv}>
             <table>
                 {createRow('Evaluation Function URL:', <input style={formStyles.inputArea} type='url' value={urlValue} onChange={handleUrlChange}/>)}
-                {createRow('Answer JSON:', <textarea style={formStyles.inputArea} value={answer} onChange={() => {localStorage.setItem("answer", answer)}}/>)}
+                {createRow('Answer JSON:', <textarea style={formStyles.inputArea} value={answer} onChange={handleAnswerChange}/>)}
                 {createRow('Parameters JSON:', <textarea style={formStyles.inputArea} value={schemaValue} onChange={handleSchemaChange}/>)}
             </table>
             {createEvalButton()}
