@@ -18,7 +18,7 @@ export function Form(props: FormProps) {
         setSchemaValue(event.target.value);
     }
     return (
-        <form>
+        <div>
             <label>URL: </label>
             <input type="text" value = {urlValue} onChange={handleUrlChange} /><br />
             <label>Params: </label>
@@ -27,6 +27,6 @@ export function Form(props: FormProps) {
                 e.preventDefault();
                 props.evalFunc(urlValue, JSON.parse(schemaValue))
             }}>Evaluate</button>
-        </form>
+        </div>
     );
 }
