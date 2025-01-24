@@ -38,7 +38,7 @@ export const Panel: React.FC<PanelProps> = memo(function MyPanel(props) {
 
   return (
     <AddonPanel {...props}>
-          <Evaluate />
+      <Evaluate />
     </AddonPanel>
   );
 });
