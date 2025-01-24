@@ -11,16 +11,12 @@ export const AnswerButton = memo(function MyAddonSelector() {
   const isActive = !!globals[KEY];
 
   function saveAnswer() {
-    localStorage.setItem('answer', localStorage.getItem('response'));
-    window.dispatchEvent(new Event('storage'));
+    localStorage.setItem("answer", localStorage.getItem("response"));
+    window.dispatchEvent(new Event("storage"));
   }
 
   return (
-    <IconButton
-      key={TOOL_ID}
-      title="Save Answer"
-      onClick={saveAnswer}
-    >
+    <IconButton key={TOOL_ID} title="Save Answer" onClick={saveAnswer}>
       <LightningIcon />
     </IconButton>
   );

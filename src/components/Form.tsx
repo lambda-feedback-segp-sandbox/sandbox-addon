@@ -1,97 +1,132 @@
-import React, {useEffect, useState, MouseEventHandler} from 'react'
-import { color, typography, StorybookTheme, background } from 'storybook/internal/theming';
+import React, { useEffect, useState, MouseEventHandler } from "react";
+import {
+  color,
+  typography,
+  StorybookTheme,
+  background,
+} from "storybook/internal/theming";
 
 type FormProps = {
-    evalFunc: any
-}
+  evalFunc: any;
+};
 export function Form(props: FormProps) {
-    const [urlValue, setUrlValue] = useState('');
-    const [schemaValue, setSchemaValue] = useState('{}');
-    interface ChangeEvent {
-        target: {
-            value: string;
-        }
-    }
-    const handleUrlChange = (event: ChangeEvent) => {
-        setUrlValue(event.target.value);
-    }
-    const handleSchemaChange = (event: ChangeEvent) => {
-        setSchemaValue(event.target.value);
-    }
-    
-    const handleAnswerChange = (event: ChangeEvent) => {
-        localStorage.setItem("answer", event.target.value);
-        setAnswer(event.target.value);
-    }
+  const [urlValue, setUrlValue] = useState("");
+  const [schemaValue, setSchemaValue] = useState("{}");
+  interface ChangeEvent {
+    target: {
+      value: string;
+    };
+  }
+  const handleUrlChange = (event: ChangeEvent) => {
+    setUrlValue(event.target.value);
+  };
+  const handleSchemaChange = (event: ChangeEvent) => {
+    setSchemaValue(event.target.value);
+  };
 
-    const createEvalButton = () => (
-        <button type="button" style={formStyles.evalButton} onClick={(e) => {
-            e.preventDefault();
-            props.evalFunc(urlValue, JSON.parse(schemaValue));
-        }}>Test Evaluation Function</button>
-    );
+  const handleAnswerChange = (event: ChangeEvent) => {
+    localStorage.setItem("answer", event.target.value);
+    setAnswer(event.target.value);
+  };
 
-    const createRow = (text: string, inputElem: React.JSX.Element) => (
-        <tr>
-            <td style={formStyles.labelColumn}><label>{text}</label></td>
-            <td style={formStyles.inputColumn}>{inputElem}</td>
-        </tr>
-    );
+  const createEvalButton = () => (
+    <button
+      type="button"
+      style={formStyles.evalButton}
+      onClick={(e) => {
+        e.preventDefault();
+        props.evalFunc(urlValue, JSON.parse(schemaValue));
+      }}
+    >
+      Test Evaluation Function
+    </button>
+  );
 
-    const [answer, setAnswer] = useState("{}");
-    useEffect(() => {
-        const handleStorage = () => {
-            setAnswer(localStorage.getItem('answer'));
-        }
-        window.addEventListener('storage', handleStorage);
-        return () => window.removeEventListener('storage', handleStorage);
-    }, []);
+  const createRow = (text: string, inputElem: React.JSX.Element) => (
+    <tr>
+      <td style={formStyles.labelColumn}>
+        <label>{text}</label>
+      </td>
+      <td style={formStyles.inputColumn}>{inputElem}</td>
+    </tr>
+  );
 
-    return (
-        <div style={formStyles.topLevelDiv}>
-            <table>
-                {createRow('Evaluation Function URL:', <input style={formStyles.inputArea} type='url' value={urlValue} onChange={handleUrlChange}/>)}
-                {createRow('Answer JSON:', <textarea style={formStyles.inputArea} value={answer} onChange={handleAnswerChange}/>)}
-                {createRow('Parameters JSON:', <textarea style={formStyles.inputArea} value={schemaValue} onChange={handleSchemaChange}/>)}
-            </table>
-            {createEvalButton()}
-        </div>
-    );
+  const [answer, setAnswer] = useState("{}");
+  useEffect(() => {
+    const handleStorage = () => {
+      setAnswer(localStorage.getItem("answer"));
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
+  return (
+    <div style={formStyles.topLevelDiv}>
+      <table>
+        {createRow(
+          "Evaluation Function URL:",
+          <input
+            style={formStyles.inputArea}
+            type="url"
+            value={urlValue}
+            onChange={handleUrlChange}
+          />
+        )}
+        {createRow(
+          "Answer JSON:",
+          <textarea
+            style={formStyles.inputArea}
+            value={answer}
+            onChange={handleAnswerChange}
+          />
+        )}
+        {createRow(
+          "Parameters JSON:",
+          <textarea
+            style={formStyles.inputArea}
+            value={schemaValue}
+            onChange={handleSchemaChange}
+          />
+        )}
+      </table>
+      {createEvalButton()}
+    </div>
+  );
 }
 
 const formStyles = {
-    topLevelDiv: {
-        fontFamily: typography.fonts.base,
-        fontWeight: typography.weight.bold
-    },
-    inputArea: {
-        width: '100%',
-        padding: '5px',
-        fontFamily: 'inherit',
-        fontWeight: typography.weight.regular,
-        resize: 'vertical',
-        margin: '0px 10px 5px 15px'
-    },
-    labelColumn: {
-        fontFamily: 'inherit',
-        fontWeight: typography.weight.bold,
-        whiteSpace: 'nowrap',
-        width: '1%',
-        verticalAlign: 'top',
-        padding: '5px 0px'
-    },
-    inputColumn: {
-        fontFamily: typography.fonts.mono,
-        fontWeight: typography.weight.regular,
-        width: '100%'
-    },
-    evalButton: {
-        fontFamily: 'inherit',
-        fontWeight: typography.weight.bold,
-        width: '100%',
-        margin: '10px 0px 0px 10px',
-        padding: '10px',
-        backgroundColor: color.primary,
-        color: 'white'
-    },
+  topLevelDiv: {
+    fontFamily: typography.fonts.base,
+    fontWeight: typography.weight.bold,
+  },
+  inputArea: {
+    width: "100%",
+    padding: "5px",
+    fontFamily: "inherit",
+    fontWeight: typography.weight.regular,
+    resize: "vertical",
+    margin: "0px 10px 5px 15px",
+  },
+  labelColumn: {
+    fontFamily: "inherit",
+    fontWeight: typography.weight.bold,
+    whiteSpace: "nowrap",
+    width: "1%",
+    verticalAlign: "top",
+    padding: "5px 0px",
+  },
+  inputColumn: {
+    fontFamily: typography.fonts.mono,
+    fontWeight: typography.weight.regular,
+    width: "100%",
+  },
+  evalButton: {
+    fontFamily: "inherit",
+    fontWeight: typography.weight.bold,
+    width: "100%",
+    margin: "10px 0px 0px 10px",
+    padding: "10px",
+    backgroundColor: color.primary,
+    color: "white",
+  },
 };
