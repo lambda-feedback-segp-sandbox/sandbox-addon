@@ -45,7 +45,9 @@ export function Evaluate() {
     console.log(res);
     updateResponse(JSON.stringify(res.data));
     const [args, updateArgs, resetArgs] = useArgs();
-    updateArgs({feedback: {isCorrect: res.data.isCorrect, feedback: res.data.feedback ?? '', color: res.data.isCorrect ? 'green':'red'}})
+    const feedback = {isCorrect: res.data.isCorrect, feedback: res.data.feedback ?? '', color: res.data.isCorrect ? 'green':'red'};
+    console.log(feedback);
+    updateArgs({feedback: feedback});
     // {homes.map(home => <div>{home.name}</div>)}
   }
   return (
