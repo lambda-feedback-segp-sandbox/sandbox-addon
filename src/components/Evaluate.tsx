@@ -44,12 +44,11 @@ export function Evaluate() {
     const res = await axios.post("http://localhost:3070", request);
     console.log(res);
     updateResponse(JSON.stringify(res.data));
-    const feedback = {isCorrect: res.data.result.isCorrect,
+    const feedback = {isCorrect: res.data.result.is_correct,
+                      isError: res.data.result.is_error ?? false,
                       feedback: res.data.result.feedback 
-                      ?? (res.data.result.isCorrect ? "Correct" : "Incorrect"),
-                      color: res.data.isCorrect ? 'green':'red'};
-    console.log(res.data.result.isCorrect);
-    console.log(feedback);
+                      ?? (res.data.result.is_correct ? "Correct" : "Incorrect"),
+                      color: res.data.is_correct ? 'green':'red'};
     updateArgs({feedback: feedback});
     // {homes.map(home => <div>{home.name}</div>)}
   }
