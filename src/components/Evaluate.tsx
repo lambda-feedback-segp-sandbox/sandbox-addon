@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form } from "./Form";
 import axios from "axios";
 import { color, typography } from "storybook/internal/theming";
+import { useArgs } from '@storybook/manager-api';
 
 function parseStoredString(responseString: string): string | any[] | object {
   if (!responseString) {
@@ -22,6 +23,7 @@ function parseStoredString(responseString: string): string | any[] | object {
 
 export function Evaluate() {
   const [response, updateResponse] = useState<string>("");
+
   async function evaluate(url: string, params: JSON) {
     console.log("remote eval");
     console.log(url);
@@ -42,6 +44,8 @@ export function Evaluate() {
     const res = await axios.post("http://localhost:3070", request);
     console.log(res);
     updateResponse(JSON.stringify(res.data));
+    const [args, updateArgs, resetArgs] = useArgs();
+    updateArgs({feedback: {isCorrect: res.data.isCorrect, feedback: res.data.feedback ?? '', color: res.data.isCorrect ? 'green':'red'}})
     // {homes.map(home => <div>{home.name}</div>)}
   }
   return (
