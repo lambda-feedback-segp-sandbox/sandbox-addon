@@ -48,7 +48,7 @@ export function Evaluate() {
                       isError: res.data.result.is_error ?? false,
                       feedback: res.data.result.feedback 
                       ?? (res.data.result.is_correct ? "Correct" : "Incorrect"),
-                      color: res.data.is_correct ? 'green':'red'};
+                      color: res.data.result.is_correct ? 'green':'red'};
     updateArgs({feedback: feedback});
     // {homes.map(home => <div>{home.name}</div>)}
   }
