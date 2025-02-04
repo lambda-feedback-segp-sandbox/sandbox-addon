@@ -23,7 +23,7 @@ function parseStoredString(responseString: string): string | any[] | object {
 
 export function Evaluate() {
   const [response, updateResponse] = useState<string>("");
-
+  const [args, updateArgs, resetArgs] = useArgs();
   async function evaluate(url: string, params: JSON) {
     console.log("remote eval");
     console.log(url);
@@ -44,7 +44,6 @@ export function Evaluate() {
     const res = await axios.post("http://localhost:3070", request);
     console.log(res);
     updateResponse(JSON.stringify(res.data));
-    const [args, updateArgs, resetArgs] = useArgs();
     const feedback = {isCorrect: res.data.isCorrect, feedback: res.data.feedback ?? '', color: res.data.isCorrect ? 'green':'red'};
     console.log(feedback);
     updateArgs({feedback: feedback});
