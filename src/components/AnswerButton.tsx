@@ -11,8 +11,7 @@ export const AnswerButton = memo(function MyAddonSelector() {
   const isActive = !!globals[KEY];
 
   function saveAnswer() {
-    localStorage.setItem("answer", localStorage.getItem("response"));
-    window.dispatchEvent(new Event("storage"));
+    // window.dispatchEvent(new Event("storage"));
   }
 
   return (

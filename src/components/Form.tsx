@@ -11,7 +11,8 @@ type FormProps = {
 };
 export function Form(props: FormProps) {
   const [urlValue, setUrlValue] = useState("");
-  const [schemaValue, setSchemaValue] = useState("{}");
+  const [answer, setAnswer] = useState("");
+  const [schemaValue, setSchemaValue] = useState("");
   interface ChangeEvent {
     target: {
       value: string;
@@ -24,11 +25,6 @@ export function Form(props: FormProps) {
     setSchemaValue(event.target.value);
   };
 
-  const handleAnswerChange = (event: ChangeEvent) => {
-    localStorage.setItem("answer", event.target.value);
-    setAnswer(event.target.value);
-  };
-
   const createEvalButton = () => (
     <button
       type="button"
@@ -38,7 +34,7 @@ export function Form(props: FormProps) {
         props.evalFunc(urlValue, JSON.parse(schemaValue));
       }}
     >
-      Test Evaluation Function
+      Test Evaluation Function (with Student View input)
     </button>
   );
 
@@ -51,14 +47,9 @@ export function Form(props: FormProps) {
     </tr>
   );
 
-  const [answer, setAnswer] = useState("{}");
-  useEffect(() => {
-    const handleStorage = () => {
-      setAnswer(localStorage.getItem("answer"));
-    };
-    window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
-  }, []);
+  window.addEventListener("storage", () => {
+    setAnswer(JSON.stringify(JSON.parse(localStorage.getItem("wizard.input")).answer));
+  })
 
   return (
     <div style={formStyles.topLevelDiv}>
@@ -73,11 +64,11 @@ export function Form(props: FormProps) {
           />
         )}
         {createRow(
-          "Answer JSON:",
+          "Answer:",
           <textarea
             style={formStyles.inputArea}
             value={answer}
-            onChange={handleAnswerChange}
+            onChange={(_) => {}}
           />
         )}
         {createRow(

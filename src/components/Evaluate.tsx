@@ -25,14 +25,14 @@ export function Evaluate() {
   const [response, updateResponse] = useState<string>("");
   const [args, updateArgs, resetArgs] = useArgs();
   async function evaluate(url: string, params: JSON) {
+    const answer = parseStoredString(JSON.stringify(JSON.parse(localStorage.getItem("wizard.input")).answer));
+    const response = parseStoredString(localStorage.getItem("student.input"));
+
     console.log("remote eval");
-    console.log(url);
-    console.log(params);
-
-    const answer = parseStoredString(localStorage.getItem("answer"));
-
-    const response = parseStoredString(localStorage.getItem("response"));
-    console.log(response);
+    console.log("url", url);
+    console.log("answer:", answer);
+    console.log("params:", params);
+    console.log("response", response);
 
     const request = {
       url: url,
