@@ -24,9 +24,31 @@ function parseStoredString(responseString: string): string | any[] | object {
 export function Evaluate() {
   const [response, updateResponse] = useState<string>("");
   const [args, updateArgs, resetArgs] = useArgs();
+
   async function evaluate(url: string, params: JSON) {
-    const answer = parseStoredString(JSON.stringify(JSON.parse(localStorage.getItem("wizard.input")).answer));
-    const response = parseStoredString(localStorage.getItem("student.input"));
+    // Check if sessionStorage items exist before parsing
+    const wizardInput = sessionStorage.getItem("wizard.input");
+    const studentInput = sessionStorage.getItem("student.input");
+
+    // Safely parse the wizard input if it exists, otherwise use a fallback value
+    let answer: { defaultAnswer: string } = { defaultAnswer: '' }; // Default value for answer
+
+    try {
+      const wizardInput = sessionStorage.getItem("wizard.input");
+
+      // Safely parse the wizard input if it exists, otherwise use a fallback value
+      if (wizardInput) {
+        const parsedWizardInput = JSON.parse(wizardInput);
+
+        // Ensure that parsedWizardInput.answer is a string or use fallback
+        answer = parsedWizardInput?.answer ? 
+          { defaultAnswer: String(parsedWizardInput.answer) } : 
+          { defaultAnswer: '' }; // Fallback value if wizard.input is malformed
+      }
+    } catch (error) {}
+
+    // Safely parse the student input if it exists, otherwise use a fallback value
+    const response = studentInput ? parseStoredString(studentInput) : { defaultResponse: '' }; // Fallback value if student.input is null
 
     console.log("remote eval");
     console.log("url", url);
@@ -44,14 +66,18 @@ export function Evaluate() {
     const res = await axios.post("http://localhost:3070", request);
     console.log(res);
     updateResponse(JSON.stringify(res.data));
-    const feedback = {isCorrect: res.data.result.is_correct,
-                      isError: res.data.result.is_error ?? false,
-                      feedback: res.data.result.feedback 
-                      ?? (res.data.result.is_correct ? "Correct" : "Incorrect"),
-                      color: res.data.result.is_correct ? 'green':'red'};
-    updateArgs({feedback: feedback});
-    // {homes.map(home => <div>{home.name}</div>)}
+
+    const feedback = {
+      isCorrect: res.data.result.is_correct,
+      isError: res.data.result.is_error ?? false,
+      feedback:
+        res.data.result.feedback ??
+        (res.data.result.is_correct ? "Correct" : "Incorrect"),
+      color: res.data.result.is_correct ? "green" : "red",
+    };
+    updateArgs({ feedback: feedback });
   }
+
   return (
     <div style={evaluateStyles.mainDiv}>
       <div style={{ width: "100%", display: "table" }}>
