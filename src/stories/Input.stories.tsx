@@ -9,7 +9,7 @@ import { IModularResponseSchema } from "@lambda-feedback-segp-sandbox/response-a
 const initialiseMatrix = (args: any): React.FC<any> => {
   return () => {
     const [response, _] = useState<IModularResponseSchema | null>(() => {
-      const storedResponse = localStorage.getItem("wizard.input");
+      const storedResponse = sessionStorage.getItem("wizard.input");
       if (storedResponse) {
         try {
           const parsedResponse: IModularResponseSchema = JSON.parse(storedResponse);
@@ -34,7 +34,7 @@ const initialiseMatrix = (args: any): React.FC<any> => {
     return matrix.InputComponent({
       ...args,
       handleChange: (val: IModularResponseSchema) => {
-        localStorage.setItem("student.input", JSON.stringify(val));
+        sessionStorage.setItem("student.input", JSON.stringify(val));
       }
     });
   };
@@ -47,7 +47,7 @@ const InputMeta = {
   },
   args: {
     handleChange: (val: IModularResponseSchema) => {
-      localStorage.setItem("student.input", JSON.stringify(val));
+      sessionStorage.setItem("student.input", JSON.stringify(val));
     },
     handleSubmit: fn(),
   },

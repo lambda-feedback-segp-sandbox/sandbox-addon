@@ -48,7 +48,7 @@ export function Form(props: FormProps) {
   );
 
   window.addEventListener("storage", () => {
-    setAnswer(JSON.stringify(JSON.parse(localStorage.getItem("wizard.input")).answer));
+    setAnswer(JSON.stringify(JSON.parse(sessionStorage.getItem("wizard.input")).answer));
   })
 
   return (
