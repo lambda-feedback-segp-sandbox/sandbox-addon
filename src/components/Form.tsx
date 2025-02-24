@@ -48,7 +48,14 @@ export function Form(props: FormProps) {
   );
 
   window.addEventListener("storage", () => {
-    setAnswer(JSON.stringify(JSON.parse(sessionStorage.getItem("wizard.input")).answer));
+    const wizardInput = sessionStorage.getItem("wizard.input");
+
+    // Check if "wizard.input" exists and has valid data
+    if (wizardInput) {
+      setAnswer(JSON.stringify(JSON.parse(wizardInput).answer));
+    } else {
+      setAnswer("{}"); // Set a default value if "wizard.input" is missing or null
+    }
   })
 
   return (
