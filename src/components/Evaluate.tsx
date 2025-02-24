@@ -31,9 +31,21 @@ export function Evaluate() {
     const studentInput = sessionStorage.getItem("student.input");
 
     // Safely parse the wizard input if it exists, otherwise use a fallback value
-    const answer = wizardInput
-      ? parseStoredString(JSON.stringify(JSON.parse(wizardInput).answer))
-      : { defaultAnswer: '' }; // Fallback value if wizard.input is null
+    let answer: { defaultAnswer: string } = { defaultAnswer: '' }; // Default value for answer
+
+    try {
+      const wizardInput = sessionStorage.getItem("wizard.input");
+
+      // Safely parse the wizard input if it exists, otherwise use a fallback value
+      if (wizardInput) {
+        const parsedWizardInput = JSON.parse(wizardInput);
+
+        // Ensure that parsedWizardInput.answer is a string or use fallback
+        answer = parsedWizardInput?.answer ? 
+          { defaultAnswer: String(parsedWizardInput.answer) } : 
+          { defaultAnswer: '' }; // Fallback value if wizard.input is malformed
+      }
+    } catch (error) {}
 
     // Safely parse the student input if it exists, otherwise use a fallback value
     const response = studentInput ? parseStoredString(studentInput) : { defaultResponse: '' }; // Fallback value if student.input is null
