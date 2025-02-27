@@ -31,24 +31,17 @@ export function Evaluate() {
     const studentInput = sessionStorage.getItem("student.input");
 
     // Safely parse the wizard input if it exists, otherwise use a fallback value
-    let answer: { defaultAnswer: string } = { defaultAnswer: '' }; // Default value for answer
+    let answer: string | object = ""; // Default value for answer
 
     try {
       const wizardInput = sessionStorage.getItem("wizard.input");
 
       // Safely parse the wizard input if it exists, otherwise use a fallback value
-      if (wizardInput) {
-        const parsedWizardInput = JSON.parse(wizardInput);
-
-        // Ensure that parsedWizardInput.answer is a string or use fallback
-        answer = parsedWizardInput?.answer ? 
-          { defaultAnswer: String(parsedWizardInput.answer) } : 
-          { defaultAnswer: '' }; // Fallback value if wizard.input is malformed
-      }
+      answer = wizardInput ? JSON.parse(wizardInput).answer : "";
     } catch (error) {}
 
     // Safely parse the student input if it exists, otherwise use a fallback value
-    const response = studentInput ? parseStoredString(studentInput) : { defaultResponse: '' }; // Fallback value if student.input is null
+    const response = studentInput ? parseStoredString(studentInput) : ""; // Fallback value if student.input is null
 
     console.log("remote eval");
     console.log("url", url);
