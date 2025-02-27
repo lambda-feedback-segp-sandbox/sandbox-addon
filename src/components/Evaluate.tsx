@@ -16,6 +16,8 @@ function parseStoredString(responseString: string): string | any[] | object {
       return JSON.parse(responseString);
     case "\\":
       return responseString.substring(1);
+    case "\"":
+      return responseString.substring(1, responseString.length - 1);
     default:
       return responseString;
   }
