@@ -2,7 +2,6 @@ import React from "react";
 import { addons, types } from "storybook/internal/manager-api";
 
 import { Panel } from "./components/Panel";
-import { AnswerButton } from "./components/AnswerButton";
 import { ADDON_ID, PANEL_ID, TOOL_ID } from "./constants";
 
 /**
@@ -18,11 +17,5 @@ addons.register(ADDON_ID, (api) => {
     title: "Evaluate",
     match: ({ viewMode }) => viewMode === "story",
     render: ({ active }) => <Panel active={active} />,
-  });
-  addons.add(TOOL_ID, {
-    type: types.TOOL,
-    title: "Save Answer",
-    match: ({ tabId, viewMode }) => !tabId && viewMode == "story",
-    render: () => <AnswerButton />,
   });
 });

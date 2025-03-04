@@ -1,72 +1,19 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
-import React, { useState } from "react";
+// These stories show the Wizard component in isolation.
 
-import { MyResponseAreaTub } from "../components/Matrix";
-import { wrapInput } from "./input-wrapper";
-import { IModularResponseSchema } from "@lambda-feedback-segp-sandbox/response-area-base/schemas/question-form.schema";
+import {
+  DefaultStory,
+  createMeta,
+} from '@lambda-feedback-segp-sandbox/response-area-template-lib/stories/Wizard.stories'
 
-const initialiseMatrix = (args: any): React.FC<any> => {
-  return () => {
-    const [response, setResponse] = useState<IModularResponseSchema | null>(() => {
-      const storedResponse = sessionStorage.getItem("wizard.input");
-      if (storedResponse) {
-        try {
-          const parsedResponse: IModularResponseSchema = JSON.parse(storedResponse);
-          return parsedResponse && parsedResponse.config && parsedResponse.answer
-            ? parsedResponse
-            : null;
-        } catch {
-          return null; // Return null if JSON parsing fails
-        }
-      }
-      return null;
-    });
-
-    const matrix = new MyResponseAreaTub();
-    if (response && response.config && response.answer) {
-      // @ts-ignore
-      matrix.config = response.config;
-      // @ts-ignore
-      matrix.answer = response.answer;
-    } else {
-      matrix.initWithDefault();
-    }
-
-    return matrix.WizardComponent({
-      ...args,
-      handleChange: (val: IModularResponseSchema) => {
-        if (val && val.config && val.answer) {
-          sessionStorage.setItem("wizard.input", JSON.stringify(val));
-          setResponse(val); // Update state safely
-        }
-      },
-    });
-  };
-};
-
-const WizardMeta = {
-  title: "Wizard",
-  parameters: {
-    layout: "centered",
-  },
-  args: {
-    handleChange: (val: IModularResponseSchema) => {
-      if (val && val.config && val.answer) {
-        sessionStorage.setItem("wizard.input", JSON.stringify(val));
-      }
-    },
-    handleSubmit: fn(),
-  },
-} satisfies Meta;
-
-const WrappedWizard: React.FC<any> = wrapInput(initialiseMatrix(WizardMeta.args));
 
 export default {
-  ...WizardMeta,
-  component: WrappedWizard,
-  render: (args: any) => <WrappedWizard {...args} />,
-};
+  ...createMeta(() => new window['RA_replaceme']()),
+  // You can add custom story metadata here.
+  // See https://storybook.js.org/docs/writing-stories#default-export.
+}
 
-type Story = StoryObj<typeof WrappedWizard>;
-export const Default: Story = {};
+// Managed by response-area-template-lib.
+export const Default = DefaultStory
+
+// You can add your own stories here.
+// See https://storybook.js.org/docs/writing-stories#how-to-write-stories.

@@ -1,65 +1,23 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
-import React, { useState } from "react";
+// These stories show the Input component in isolation.
 
-import { MyResponseAreaTub } from "../components/Matrix";
-import { wrapInput } from "./input-wrapper";
-import { IModularResponseSchema } from "@lambda-feedback-segp-sandbox/response-area-base/schemas/question-form.schema";
+import {
+  StudentViewStory,
+  TeacherViewStory,
+  createMeta,
+} from '@lambda-feedback-segp-sandbox/response-area-template-lib/stories/Input.stories'
 
-const initialiseMatrix = (args: any): React.FC<any> => {
-  return () => {
-    const [response, _] = useState<IModularResponseSchema | null>(() => {
-      const storedResponse = sessionStorage.getItem("wizard.input");
-      if (storedResponse) {
-        try {
-          const parsedResponse: IModularResponseSchema = JSON.parse(storedResponse);
-          return parsedResponse && parsedResponse.config
-            ? parsedResponse
-            : null;
-        } catch {
-          return null; // Return null if JSON parsing fails
-        }
-      }
-      return null;
-    });
-
-    const matrix = new MyResponseAreaTub();
-    if (response && response.config) {
-      // @ts-ignore
-      matrix.config = response.config;
-    } else {
-      matrix.initWithDefault();
-    }
-
-    return matrix.InputComponent({
-      ...args,
-      handleChange: (val: IModularResponseSchema) => {
-        sessionStorage.setItem("student.input", JSON.stringify(val));
-      }
-    });
-  };
-};
-
-const InputMeta = {
-  title: "Input",
-  parameters: {
-    layout: "centered",
-  },
-  args: {
-    handleChange: (val: IModularResponseSchema) => {
-      sessionStorage.setItem("student.input", JSON.stringify(val));
-    },
-    handleSubmit: fn(),
-  },
-} satisfies Meta;
-
-const WrappedInput: React.FC<any> = wrapInput(initialiseMatrix(InputMeta.args));
 
 export default {
-  ...InputMeta,
-  component: WrappedInput,
-  render: (args: any) => <WrappedInput {...args} />,
-};
+  ...createMeta(() => new window['RA_replaceme']()),
+  // You can add custom story metadata here.
+  // See https://storybook.js.org/docs/writing-stories#default-export.
+}
 
-type Story = StoryObj<typeof WrappedInput>;
-export const Default: Story = {};
+// Managed by response-area-template-lib.
+export const StudentView = StudentViewStory
+
+// Managed by response-area-template-lib.
+export const TeacherView = TeacherViewStory
+
+// You can add your own stories here.
+// See https://storybook.js.org/docs/writing-stories#how-to-write-stories.
