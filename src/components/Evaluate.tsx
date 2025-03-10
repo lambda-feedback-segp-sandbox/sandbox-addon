@@ -65,9 +65,8 @@ export function Evaluate() {
     const feedback = {
       isCorrect: res.data.result.is_correct,
       isError: res.data.result.is_error ?? false,
-      feedback:
-        res.data.result.feedback ??
-        (res.data.result.is_correct ? "Correct" : "Incorrect"),
+      feedback: (res.data.result.is_correct ? "Correct" : "Incorrect")
+        + (res.data.result.feedback ? "\n" + res.data.result.feedback : ""),
       color: res.data.result.is_correct ? "green" : "red",
     };
     updateArgs({ feedback: feedback });
