@@ -4,7 +4,7 @@ import {
   StudentViewStory,
   TeacherViewStory,
   createMeta,
-} from '@lambda-feedback-segp-sandbox/response-area-template-lib/stories/Input.stories'
+} from '@lambda-feedback/response-area-template-lib/stories/Input.stories'
 
 
 export default {

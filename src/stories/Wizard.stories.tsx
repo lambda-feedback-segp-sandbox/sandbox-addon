@@ -3,7 +3,7 @@
 import {
   DefaultStory,
   createMeta,
-} from '@lambda-feedback-segp-sandbox/response-area-template-lib/stories/Wizard.stories'
+} from '@lambda-feedback/response-area-template-lib/stories/Wizard.stories'
 
 
 export default {
